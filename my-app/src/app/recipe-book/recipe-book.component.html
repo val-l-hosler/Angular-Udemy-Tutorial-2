@@ -1,9 +1,14 @@
 <div class="row">
   <div class="col-md-5">
-    <app-recipe-list></app-recipe-list>
+    <app-recipe-list (recipeToParent)="setParentRecipe($event)"></app-recipe-list>
   </div>
 
   <div class="col-md-7">
-    <app-recipe-detail></app-recipe-detail>
+    <app-recipe-detail *ngIf="parentRecipe; else infoText" [recipe]="parentRecipe"></app-recipe-detail>
+    <!-- Sister elements can both access parent element's variables/methods -->
+    <!-- Make sure not to bring the EventEmitter one parent element too high -->
+    <ng-template #infoText>
+      <p>Please select a Recipe!</p>
+    </ng-template>
   </div>
 </div>
