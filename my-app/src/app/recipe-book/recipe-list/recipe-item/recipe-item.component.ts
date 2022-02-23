@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Recipe} from "../../recipe.model";
+import {RecipeService} from "../../../services/recipe.service";
 
 @Component({
   selector: 'app-recipe-item',
@@ -8,16 +9,16 @@ import {Recipe} from "../../recipe.model";
 })
 export class RecipeItemComponent implements OnInit {
   @Input() childRecipe!: Recipe;
-  @Output() recipeClickedEvent = new EventEmitter<void>(); // This passes it to the next parent component. We aren't passing in a recipe because we already have access to it in the parent's for loop.
 
-  constructor() {
+  constructor(private recipeService: RecipeService) {
   }
 
   ngOnInit(): void {
   }
 
   recipeClicked(): void {
-    this.recipeClickedEvent.emit();
+    // This emits the child recipe to the service
+    this.recipeService.recipeSelected.emit(this.childRecipe);
   }
 
 }
