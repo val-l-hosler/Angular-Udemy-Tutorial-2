@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Recipe} from '../recipe-book/recipe.model';
 import {Ingredient} from '../shared/ingredient.model';
 
@@ -6,9 +6,6 @@ import {Ingredient} from '../shared/ingredient.model';
   providedIn: 'root'
 })
 export class RecipeService {
-  // This gets info from the child to the parent
-  recipeSelected = new EventEmitter<Recipe>();
-
   // Store the recipe data
   private recipes: Recipe[] = [
     new Recipe('A Test Recipe',
@@ -29,5 +26,17 @@ export class RecipeService {
     // return this.recipes;
 
     return this.recipes.slice(); // this returns a new array that is a copy of the OG array
+  }
+
+  getRecipe(name: string): Recipe {
+    let selectedRecipe: Recipe;
+
+    this.recipes.forEach((recipe) => {
+      if (recipe.name === name) {
+        selectedRecipe = recipe;
+      }
+    })
+
+    return selectedRecipe;
   }
 }

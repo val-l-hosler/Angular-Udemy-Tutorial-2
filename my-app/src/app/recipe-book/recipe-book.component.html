@@ -4,11 +4,9 @@
   </div>
 
   <div class="col-md-7">
-    <app-recipe-detail *ngIf="parentRecipe; else infoText" [recipe]="parentRecipe"></app-recipe-detail>
+    <router-outlet>
+    </router-outlet>
     <!-- Sister elements can both access parent element's variables/methods -->
     <!-- Make sure not to bring the EventEmitter one parent element too high -->
-    <ng-template #infoText>
-      <p>Please select a Recipe!</p>
-    </ng-template>
   </div>
 </div>
