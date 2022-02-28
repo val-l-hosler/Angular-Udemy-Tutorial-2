@@ -19,7 +19,7 @@ export class ShoppingListEditComponent implements OnInit {
   }
 
   addOnClick(): void {
-    this.shoppingListService.ingredientsAdded.emit(
+    this.shoppingListService.ingredientsAdded.next(
       new Ingredient(
         this.primaryNameInput.nativeElement.value,
         this.primaryAmountInput.nativeElement.value
