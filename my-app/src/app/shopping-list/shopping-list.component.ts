@@ -10,32 +10,42 @@ import {Subscription} from 'rxjs';
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[];
-  private idChangeSub: Subscription;
+  private addIngredientSub: Subscription;
+  private deleteIngredientSub: Subscription;
+  private editIngredientSub: Subscription;
 
   constructor(private shoppingListService: ShoppingListService) {
   }
 
   ngOnInit(): void {
-    // Do all initializations and any other "heavy lifting" in ngOnInit
+    // Have to initially set this so the default values show
     this.ingredients = this.shoppingListService.getIngredients();
 
     // This updates the ingredients arr when a change occurs in the event emitter
-    // Remember to set this to a var so you can also unsubscribe()
-    this.idChangeSub = this.shoppingListService.ingredientsAdded.subscribe((ingredient) => {
+    // Remember to set this to a var, so you can also unsubscribe()
+    this.addIngredientSub = this.shoppingListService.ingredientsAdded.subscribe((ingredient) => {
       this.shoppingListService.addIngredient(ingredient);
       this.ingredients = this.shoppingListService.getIngredients();
     });
 
-    /* Option 2
-    this.shoppingListService.ingredientsAdded2.subscribe(
-      (ingredients: Ingredient[]) => {
-        this.ingredients = ingredients;
-      }
-    );
-     */
+    this.deleteIngredientSub = this.shoppingListService.ingredientsDeleted.subscribe((ingredient) => {
+      this.shoppingListService.deleteIngredient(ingredient);
+      this.ingredients = this.shoppingListService.getIngredients();
+    });
+
+    this.editIngredientSub = this.shoppingListService.ingredientsEdited.subscribe((ingredient) => {
+      this.shoppingListService.editIngredient(ingredient);
+      this.ingredients = this.shoppingListService.getIngredients();
+    });
   }
 
   ngOnDestroy() {
-    this.idChangeSub.unsubscribe();
+    this.addIngredientSub.unsubscribe();
+    this.deleteIngredientSub.unsubscribe();
+    this.editIngredientSub.unsubscribe();
+  }
+
+  onIngredientClick(ingredient: Ingredient) {
+    this.shoppingListService.clickedIngredient.next(ingredient);
   }
 }

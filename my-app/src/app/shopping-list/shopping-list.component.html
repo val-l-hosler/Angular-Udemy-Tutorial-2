@@ -4,8 +4,10 @@
     <hr>
     <ul class="list-group">
       <a
+        routerLink="{{ingredient.name}}"
+        routerLinkActive="active"
+        (click)="onIngredientClick(ingredient)"
         class="list-group-item"
-        style="cursor: pointer;"
         *ngFor="let ingredient of ingredients">
         {{ingredient.name}} ({{ingredient.amount}})
       </a>

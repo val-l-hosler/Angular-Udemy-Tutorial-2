@@ -5,11 +5,15 @@ import {RecipeBookComponent} from '../recipe-book/recipe-book.component';
 import {ShoppingListComponent} from '../shopping-list/shopping-list.component';
 import {RecipeDetailComponent} from '../recipe-book/recipe-detail/recipe-detail.component';
 import {EmptyDetailComponent} from '../recipe-book/empty-detail/empty-detail.component';
-import {RecipeEditComponent} from "../recipe-book/recipe-edit/recipe-edit.component";
+import {RecipeEditComponent} from '../recipe-book/recipe-edit/recipe-edit.component';
 
 const appRoutes = [
   {path: '', redirectTo: 'recipes', pathMatch: 'full'},
-  {path: 'shopping-list', component: ShoppingListComponent},
+  {
+    path: 'shopping-list', component: ShoppingListComponent, children: [
+      {path: ':name', component: ShoppingListComponent}
+    ]
+  },
   {
     path: 'recipes', component: RecipeBookComponent, children: [
       {path: '', component: EmptyDetailComponent},

@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Ingredient} from '../shared/ingredient.model';
 import {Subject} from 'rxjs';
-// Manage ingredients
-// Add an addIngredients()
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingListService {
   ingredientsAdded = new Subject<Ingredient>();
-  // Option 2 ingredientsAdded2 = new EventEmitter<Ingredient[]>();
+  ingredientsDeleted = new Subject<Ingredient>();
+  ingredientsEdited = new Subject<Ingredient>();
+  clickedIngredient = new Subject<Ingredient>();
 
   private ingredients: Ingredient[] = [
     new Ingredient('Apples', 5),
@@ -24,12 +24,36 @@ export class ShoppingListService {
     return this.ingredients.slice();
   }
 
-  addIngredient(ingredient: Ingredient) {
-    this.ingredients.push(ingredient);
-    // Option 2 this.ingredientsAdded2.emit(this.ingredients.slice());
+  addIngredient(addedIngredient: Ingredient) {
+    let matchingIngredientFlag = false;
+    let oldAmount;
+
+    this.ingredients.forEach((ingredient) => {
+      if (addedIngredient.name === ingredient.name) {
+        matchingIngredientFlag = true;
+        oldAmount = ingredient.amount;
+      }
+    });
+
+    (!matchingIngredientFlag) ?
+      (this.ingredients.push(addedIngredient)) :
+      (this.editIngredient(new Ingredient(addedIngredient.name, parseInt(addedIngredient.amount + oldAmount))));
+  }
+
+  editIngredient(editedIngredient: Ingredient) {
+    this.ingredients.forEach((ingredient) => {
+      if (editedIngredient.name === ingredient.name) {
+        ingredient.amount = editedIngredient.amount;
+      }
+    });
   }
 
   sentIngredients(recipeIngredients: Ingredient[]) {
     this.ingredients.push(...recipeIngredients);
+  }
+
+  deleteIngredient(ingredient: Ingredient) {
+    const index = this.ingredients.indexOf(ingredient);
+    (index > -1) ? this.ingredients.splice(index, 1) : null;
   }
 }
