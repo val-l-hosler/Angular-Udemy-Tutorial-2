@@ -49,7 +49,19 @@ export class ShoppingListService {
   }
 
   sentIngredients(recipeIngredients: Ingredient[]) {
-    this.ingredients.push(...recipeIngredients);
+    let updatedRecipeIngredients = [...recipeIngredients];
+
+    for (let i = 0; i < updatedRecipeIngredients.length; i++) {
+      for (let j = 0; j < this.ingredients.length; j++) {
+        if (updatedRecipeIngredients[i].name === this.getIngredients()[j].name) {
+          let updatedAmount = updatedRecipeIngredients[i].amount + this.getIngredients()[j].amount;
+          this.ingredients[j] = new Ingredient(updatedRecipeIngredients[i].name, updatedAmount)
+          updatedRecipeIngredients.splice(i, 1);
+        }
+      }
+    }
+
+    this.ingredients.push(...updatedRecipeIngredients);
   }
 
   deleteIngredient(ingredient: Ingredient) {
