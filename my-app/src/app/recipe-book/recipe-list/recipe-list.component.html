@@ -5,7 +5,9 @@
 </div>
 <hr>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-12" *ngIf="parentRecipes.length > 0; else emptyRecipes">
     <app-recipe-item *ngFor="let recipe of parentRecipes" [childRecipe]="recipe"></app-recipe-item>
   </div>
+
+  <ng-template #emptyRecipes>There are no recipes. Either fetch the stored recipes or add a new one.</ng-template>
 </div>

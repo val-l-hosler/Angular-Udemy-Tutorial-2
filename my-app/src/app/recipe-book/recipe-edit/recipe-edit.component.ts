@@ -29,7 +29,11 @@ export class RecipeEditComponent implements OnInit, onDestroy {
 
     this.route.params.subscribe((params) => {
       this.currentRecipe = this.recipeService.getRecipe(params['name']);
+
+      // (this.currentRecipe) ? null : this.router.navigate(['../']);
+
       (this.router.url === '/recipes/new') ? this.editMode = false : this.editMode = true;
+
       let ingredients = new FormArray([])
 
       if (this.editMode === true) {
@@ -75,7 +79,7 @@ export class RecipeEditComponent implements OnInit, onDestroy {
     const description = this.thisForm.get('description').value;
     const ingredients = this.thisForm.get('ingredientsArr').value;
 
-    this.recipeService.saveRecipe(new Recipe(name, description, url, ingredients), this.route);
+    this.recipeService.saveRecipe(new Recipe(name, description, url, ingredients), this.currentRecipe);
   }
 
   onAddIngredient() {
