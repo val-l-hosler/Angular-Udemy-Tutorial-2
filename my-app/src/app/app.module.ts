@@ -14,6 +14,8 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
 import {EmptyDetailComponent} from './recipe-book/empty-detail/empty-detail.component';
 import {RecipeEditComponent} from './recipe-book/recipe-edit/recipe-edit.component';
 import {HttpClientModule} from '@angular/common/http';
+import {AuthComponent} from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import {HttpClientModule} from '@angular/common/http';
     RecipeBookComponent,
     DropdownDirective,
     EmptyDetailComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    AuthComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
