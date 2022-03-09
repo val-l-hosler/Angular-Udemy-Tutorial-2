@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthResponseData, AuthService} from '../services/auth.service';
 import {Observable, Subject} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -26,7 +27,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   authOpObservable = new Observable<AuthResponseData>();
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -71,11 +72,15 @@ export class AuthComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (responseData) => {
           (responseData.registered) ?
-            this.success.next('You have successfully logged in.') :
-            this.success.next('You have successfully signed up.');
+            this.success.next('You have successfully logged in. Redirecting to the recipes...') :
+            this.success.next('You have successfully signed up. Please login.');
 
           this.isLoading = false;
           this.hasError = false;
+
+          setTimeout(() => {
+            (responseData.registered) ? this.router.navigate(['/recipes']) : null;
+          }, 2000);
         },
         error: (errorMessage) => {
           // moved the logic into the service where the error is an observable with the message

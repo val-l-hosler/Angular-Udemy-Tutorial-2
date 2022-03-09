@@ -13,9 +13,10 @@ import {DropdownDirective} from './shared/dropdown/dropdown.directive';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import {EmptyDetailComponent} from './recipe-book/empty-detail/empty-detail.component';
 import {RecipeEditComponent} from './recipe-book/recipe-edit/recipe-edit.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthComponent} from './auth/auth.component';
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import {LoadingSpinnerComponent} from './shared/loading-spinner/loading-spinner.component';
+import {AuthInterceptor} from './auth/auth-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

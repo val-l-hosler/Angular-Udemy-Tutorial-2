@@ -9,5 +9,5 @@
     <app-recipe-item *ngFor="let recipe of parentRecipes" [childRecipe]="recipe"></app-recipe-item>
   </div>
 
-  <ng-template #emptyRecipes>There are no recipes. Either fetch the stored recipes or add a new one.</ng-template>
+  <ng-template #emptyRecipes><div class="alert alert-info">There are no recipes. Either fetch the stored recipes or add a new one.</div></ng-template>
 </div>
