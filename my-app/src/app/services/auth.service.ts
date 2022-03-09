@@ -21,6 +21,7 @@ export class AuthService {
   // also gives us access to the previously emitted subject
   user = new BehaviorSubject<User>(null);
   currentUrl = new Subject<string>();
+  // hasErrorAlert = new Subject<boolean>();
 
   private tokenExpirationTimer: any;
 

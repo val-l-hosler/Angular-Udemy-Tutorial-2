@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthResponseData, AuthService} from '../services/auth.service';
-import {map, Observable, Subject, take, tap} from 'rxjs';
+import {Observable, Subject, Subscription, take, tap} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -27,6 +27,11 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   authOpObservable = new Observable<AuthResponseData>();
 
+  errorSub: Subscription;
+  successSub: Subscription;
+
+  // errorAlertSub: Subscription;
+
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
   }
 
@@ -49,19 +54,25 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     this.setButtonText();
 
-    this.error.subscribe((value) => {
+    // this.errorAlertSub = this.authService.hasErrorAlert
+    //   .subscribe((hasErrorAlert) => {
+    //     this.hasError = hasErrorAlert;
+    //   });
+
+    this.errorSub = this.error.subscribe((value) => {
       this.errorMessage = value;
     });
 
-    this.success.subscribe((value) => {
+    this.successSub = this.success.subscribe((value) => {
       this.successMessage = value;
       (this.successMessage === 'You have successfully signed up.') ? this.signUpSuccess = true : this.loginSuccess = true;
     });
   }
 
   ngOnDestroy() {
-    this.error.unsubscribe();
-    this.success.unsubscribe();
+    this.errorSub.unsubscribe();
+    this.successSub.unsubscribe();
+    // this.errorAlertSub.unsubscribe();
   }
 
   onSwitchMode() {
@@ -125,5 +136,9 @@ export class AuthComponent implements OnInit, OnDestroy {
       this.submitButtonText = 'Sign Up';
       this.buttonText = 'Switch to Login';
     }
+  }
+
+  onCloseAlert(closedAlert: boolean) {
+    this.hasError = closedAlert;
   }
 }

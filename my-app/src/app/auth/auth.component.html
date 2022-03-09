@@ -34,9 +34,10 @@
         <button class="btn btn-info" (click)="onSwitchMode()" type="button">{{ buttonText }}</button>
       </div>
     </form>
-    <div *ngIf="hasError" class="alert alert-danger" style="margin-top: 1em">
-      {{errorMessage}}
-    </div>
+    <app-alert *ngIf="hasError" [message]="errorMessage" (hasErrorAlert)="onCloseAlert($event)"></app-alert>
+    <!--    <div *ngIf="hasError" class="alert alert-danger" style="margin-top: 1em">-->
+    <!--      {{errorMessage}}-->
+    <!--    </div>-->
     <div *ngIf="signUpSuccess || loginSuccess" class="alert alert-success" style="margin-top: 1em">
       {{successMessage}}
     </div>
