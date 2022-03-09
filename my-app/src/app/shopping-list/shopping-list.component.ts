@@ -1,7 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Ingredient} from '../shared/ingredient.model';
 import {ShoppingListService} from '../services/shopping-list.service';
-import {Subscription} from 'rxjs';
+import {Subscription, take} from 'rxjs';
+import {AuthService} from '../services/auth.service';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-shopping-list',
@@ -14,10 +16,16 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   private deleteIngredientSub: Subscription;
   private editIngredientSub: Subscription;
 
-  constructor(private shoppingListService: ShoppingListService) {
+  constructor(private shoppingListService: ShoppingListService, private authService: AuthService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.route.url
+      .pipe(take(1))
+      .subscribe((url) => {
+        this.authService.currentUrl.next(`/${url[0].path}`);
+      });
+
     // Have to initially set this so the default values show
     this.ingredients = this.shoppingListService.getIngredients();
 

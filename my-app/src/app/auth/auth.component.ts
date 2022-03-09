@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthResponseData, AuthService} from '../services/auth.service';
-import {Observable, Subject} from 'rxjs';
-import {Router} from '@angular/router';
+import {map, Observable, Subject, take, tap} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -27,10 +27,26 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   authOpObservable = new Observable<AuthResponseData>();
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.authService.user
+      .pipe(
+        take(1),
+        tap((user) => {
+          if (user) {
+            this.router.navigate(['/recipes']);
+          }
+        })
+      ).subscribe();
+
+    this.route.url
+      .pipe(take(1))
+      .subscribe((url) => {
+        this.authService.currentUrl.next(`/${url[0].path}`);
+      });
+
     this.setButtonText();
 
     this.error.subscribe((value) => {

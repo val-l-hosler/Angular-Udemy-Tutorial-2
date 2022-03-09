@@ -4,6 +4,8 @@ import {Ingredient} from '../../shared/ingredient.model';
 import {ShoppingListService} from '../../services/shopping-list.service';
 import {RecipeService} from '../../services/recipe.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {take} from 'rxjs';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -13,10 +15,21 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class RecipeDetailComponent implements OnInit {
   recipe?: Recipe;
 
-  constructor(private recipeService: RecipeService, private shoppingListService: ShoppingListService, private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private recipeService: RecipeService,
+    private shoppingListService: ShoppingListService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.route.url
+      .pipe(take(1))
+      .subscribe((url) => {
+        this.authService.currentUrl.next(`/${url[0].path}`);
+      });
+
     this.route.params.subscribe((params) => {
       let name = params.name;
       this.recipe = this.recipeService.getRecipe(name);

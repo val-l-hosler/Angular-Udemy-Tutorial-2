@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Recipe} from '../recipe.model';
 import {RecipeService} from '../../services/recipe.service';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {take} from 'rxjs';
+import {AuthService} from '../../services/auth.service';
 
 interface onDestroy {
 }
@@ -17,10 +19,16 @@ export class RecipeEditComponent implements OnInit, onDestroy {
   editMode = false;
   thisForm: FormGroup
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) {
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router, private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.route.url
+      .pipe(take(1))
+      .subscribe((url) => {
+        this.authService.currentUrl.next(`/${url[0].path}`);
+      });
+
     this.thisForm = new FormGroup({
       'name': new FormControl(null, Validators.required),
       'imageUrl': new FormControl(null, Validators.required),
