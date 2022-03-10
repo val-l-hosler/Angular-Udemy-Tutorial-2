@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import {PreloadAllModules, RouterModule} from '@angular/router';
 
 import {SharedModule} from './shared.module';
 
@@ -28,7 +28,7 @@ const appRoutes = [
   exports: [RouterModule],
   imports: [
     SharedModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})
   ]
 })
 export class AppRoutingModule {

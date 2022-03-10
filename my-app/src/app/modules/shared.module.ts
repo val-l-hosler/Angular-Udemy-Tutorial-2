@@ -16,7 +16,7 @@ import {AlertComponent} from '../shared/alert/alert.component';
     CommonModule,
     DropdownDirective,
     AlertComponent,
-    LoadingSpinnerComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     CommonModule

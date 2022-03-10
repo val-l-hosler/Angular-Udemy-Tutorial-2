@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs';
 
 import {ShoppingListService} from '../services/shopping-list.service';
 import {AuthService} from '../services/auth.service';
+import {LoggingService} from '../services/logging.service';
 
 import {Ingredient} from '../shared/ingredient.model';
 
@@ -19,7 +20,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   private deleteIngredientSub: Subscription;
   private editIngredientSub: Subscription;
 
-  constructor(private shoppingListService: ShoppingListService, private authService: AuthService, private route: ActivatedRoute) {
+  constructor(private shoppingListService: ShoppingListService, private authService: AuthService, private route: ActivatedRoute, private loggingService: LoggingService) {
   }
 
   ngOnInit(): void {
