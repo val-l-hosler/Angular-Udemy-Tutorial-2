@@ -1,9 +1,13 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Ingredient} from '../../shared/ingredient.model';
-import {ShoppingListService} from '../../services/shopping-list.service';
 import {NgForm} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+
 import {Subscription} from 'rxjs';
-import {Router} from '@angular/router';
+
+import {ShoppingListService} from '../../services/shopping-list.service';
+import {AuthService} from '../../services/auth.service';
+
+import {Ingredient} from '../../shared/ingredient.model';
 
 @Component({
   selector: 'app-shopping-list-edit',
@@ -16,10 +20,12 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   clickedIngredientFlag = false;
   @ViewChild('thisForm') form: NgForm;
 
-  constructor(private shoppingListService: ShoppingListService, private router: Router) {
+  constructor(private shoppingListService: ShoppingListService, private router: Router, private authService: AuthService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.authService.getPreviousPath(this.route.parent.url);
+
     this.getClickedIngredient = this.shoppingListService.clickedIngredient.subscribe((ingredient) => {
         this.clickedIngredient = ingredient;
         this.clickedIngredientFlag = true;

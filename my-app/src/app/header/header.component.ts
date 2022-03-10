@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+
+import {Subscription} from 'rxjs';
+
 import {DataStorageService} from '../services/data-storage.service';
 import {AuthService} from '../services/auth.service';
-import {Subscription} from 'rxjs';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   isLoggedIn = false;
 
-  constructor(private dataStorageService: DataStorageService, private authService: AuthService, private router: Router) {
+  constructor(private dataStorageService: DataStorageService, private authService: AuthService) {
   }
 
   ngOnInit(): void {

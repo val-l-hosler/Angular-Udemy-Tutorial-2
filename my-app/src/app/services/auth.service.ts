@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {BehaviorSubject, catchError, Subject, tap, throwError} from 'rxjs';
-import {User} from '../auth/user.model';
 import {Router} from '@angular/router';
+
+import {BehaviorSubject, catchError, take, tap, throwError} from 'rxjs';
+
+import {User} from '../auth/user.model';
 
 export interface AuthResponseData {
   email: string;
@@ -20,7 +22,7 @@ export interface AuthResponseData {
 export class AuthService {
   // also gives us access to the previously emitted subject
   user = new BehaviorSubject<User>(null);
-  currentUrl = new Subject<string>();
+  currentUrl = new BehaviorSubject<string>(null);
   // hasErrorAlert = new Subject<boolean>();
 
   private tokenExpirationTimer: any;
@@ -136,5 +138,13 @@ export class AuthService {
     } else {
       return throwError(() => errResponse);
     }
+  }
+
+  getPreviousPath(routeUrl) {
+    routeUrl
+      .pipe(take(1))
+      .subscribe((url) => {
+        this.currentUrl.next(`/${url[0].path}`);
+      });
   }
 }

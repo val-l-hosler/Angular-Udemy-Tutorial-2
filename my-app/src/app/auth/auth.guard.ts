@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {map, Observable, take} from 'rxjs';
+
+import {BehaviorSubject, map, Observable, take} from 'rxjs';
+
 import {AuthService} from '../services/auth.service';
 
 @Injectable({
@@ -17,10 +19,15 @@ export class AuthGuard implements CanActivate {
       .pipe(
         take(1),
         map((user) => {
-          const previousUrl = this.authService.currentUrl;
+          let previousUrl;
+
+          (this.authService.currentUrl.value) ?
+            previousUrl = this.authService.currentUrl.value :
+            previousUrl = new BehaviorSubject<string>('/auth');
+
           this.authService.currentUrl.next(null);
           const isAuth = !!user;
-          return (isAuth) ? true : this.router.createUrlTree([previousUrl]);
+          return (isAuth) ? true : this.router.createUrlTree([previousUrl.value]);
           // or could be return (user) ? true : false;
         })
       );

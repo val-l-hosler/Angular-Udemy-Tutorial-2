@@ -1,10 +1,10 @@
 // Make sure you import the angular modules you need too
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppRoutingModule} from './app-routing.module';
-import {HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
+
+import {AuthGuard} from '../auth/auth.guard';
+import {RecipesResolverService} from '../services/recipes-resolver.service';
 
 import {RecipeListComponent} from '../recipe-book/recipe-list/recipe-list.component';
 import {RecipeItemComponent} from '../recipe-book/recipe-list/recipe-item/recipe-item.component';
@@ -25,13 +25,20 @@ import {SharedModule} from './shared.module';
     EmptyDetailComponent
   ],
   imports: [
-    CommonModule,
-    BrowserModule,
     FormsModule,
-    AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    SharedModule
+    SharedModule,
+    RouterModule.forChild([
+        {
+          path: '', canActivate: [AuthGuard], component: RecipeBookComponent, children: [
+            {path: '', component: EmptyDetailComponent},
+            {path: 'new', component: RecipeEditComponent},
+            {path: ':name', component: RecipeDetailComponent, resolve: [RecipesResolverService]},
+            {path: ':name/edit', component: RecipeEditComponent, resolve: [RecipesResolverService]},
+          ]
+        }
+      ]
+    )
   ]
 })
 export class RecipesModule {

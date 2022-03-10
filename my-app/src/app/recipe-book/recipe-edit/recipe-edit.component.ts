@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Recipe} from '../recipe.model';
-import {RecipeService} from '../../services/recipe.service';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {take} from 'rxjs';
+
+import {RecipeService} from '../../services/recipe.service';
 import {AuthService} from '../../services/auth.service';
+
+import {Recipe} from '../recipe.model';
 
 interface onDestroy {
 }
@@ -23,11 +24,7 @@ export class RecipeEditComponent implements OnInit, onDestroy {
   }
 
   ngOnInit(): void {
-    this.route.url
-      .pipe(take(1))
-      .subscribe((url) => {
-        this.authService.currentUrl.next(`/${url[0].path}`);
-      });
+    this.authService.getPreviousPath(this.route.url);
 
     this.thisForm = new FormGroup({
       'name': new FormControl(null, Validators.required),
@@ -37,8 +34,6 @@ export class RecipeEditComponent implements OnInit, onDestroy {
 
     this.route.params.subscribe((params) => {
       this.currentRecipe = this.recipeService.getRecipe(params['name']);
-
-      // (this.currentRecipe) ? null : this.router.navigate(['../']);
 
       (this.router.url === '/recipes/new') ? this.editMode = false : this.editMode = true;
 

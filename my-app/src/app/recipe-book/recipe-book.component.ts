@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Recipe} from './recipe.model';
-import {RecipeService} from '../services/recipe.service';
 import {ActivatedRoute} from '@angular/router';
-import {take} from "rxjs";
-import {AuthService} from "../services/auth.service";
+
+import {RecipeService} from '../services/recipe.service';
+import {AuthService} from '../services/auth.service';
+
+import {Recipe} from './recipe.model';
 
 @Component({
   selector: 'app-recipe-book',
@@ -18,11 +19,7 @@ export class RecipeBookComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.url
-      .pipe(take(1))
-      .subscribe((url) => {
-        this.authService.currentUrl.next(`/${url[0].path}`);
-      });
+    this.authService.getPreviousPath(this.route.parent.url);
 
     this.route.params.subscribe(
       // subscribe() means you get informed of any changes

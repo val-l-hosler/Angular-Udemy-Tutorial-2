@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {BrowserModule} from '@angular/platform-browser';
 
 import {DropdownDirective} from '../shared/dropdown/dropdown.directive';
 
@@ -14,11 +13,13 @@ import {AlertComponent} from '../shared/alert/alert.component';
     DropdownDirective
   ],
   exports: [
-    DropdownDirective
+    CommonModule,
+    DropdownDirective,
+    AlertComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
-    CommonModule,
-    BrowserModule
+    CommonModule
   ]
 })
 export class SharedModule {

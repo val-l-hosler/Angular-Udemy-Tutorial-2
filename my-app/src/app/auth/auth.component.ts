@@ -1,8 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {AuthResponseData, AuthService} from '../services/auth.service';
-import {Observable, Subject, Subscription, take, tap} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
+
+import {Observable, Subject, Subscription, take, tap} from 'rxjs';
+
+import {AuthResponseData, AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -46,11 +48,7 @@ export class AuthComponent implements OnInit, OnDestroy {
         })
       ).subscribe();
 
-    this.route.url
-      .pipe(take(1))
-      .subscribe((url) => {
-        this.authService.currentUrl.next(`/${url[0].path}`);
-      });
+    this.authService.getPreviousPath(this.route.parent.url);
 
     this.setButtonText();
 

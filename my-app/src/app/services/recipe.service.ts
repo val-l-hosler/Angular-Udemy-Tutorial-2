@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Recipe} from '../recipe-book/recipe.model';
-import {Ingredient} from '../shared/ingredient.model';
+import {Router} from '@angular/router';
+
 import {Subject} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
+
+import {Recipe} from '../recipe-book/recipe.model';
 
 @Injectable({
   providedIn: 'root'
