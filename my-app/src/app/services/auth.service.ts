@@ -6,6 +6,8 @@ import {BehaviorSubject, catchError, take, tap, throwError} from 'rxjs';
 
 import {User} from '../auth/user.model';
 
+import {environment} from '../../environments/environment';
+
 export interface AuthResponseData {
   email: string;
   expiresIn: string;
@@ -32,7 +34,7 @@ export class AuthService {
 
   signUp(email: string, password: string) {
     // need to replace [API_KEY] with our firebase's API key
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB4ya6xFXvuo2-x-mqBo-S2GqPgHRNzuP4', {
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey, {
       email: email,
       password: password,
       returnSecureToken: true
@@ -46,7 +48,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB4ya6xFXvuo2-x-mqBo-S2GqPgHRNzuP4',
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey,
       {
         email: email,
         password: password,
