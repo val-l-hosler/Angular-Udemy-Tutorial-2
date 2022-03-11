@@ -32,7 +32,8 @@ export class RecipeService {
     // if you return it like this, you can directly change something on the service
     // return this.recipes;
 
-    return this.recipes.slice(); // this returns a new array that is a copy of the OG array
+    // this returns a new array that is a copy of the OG array if recipes is not empty, otherwise return an empty arr
+    return (this.recipes) ? this.recipes.slice() : [];
   }
 
   setRecipes(recipeArr: Recipe[]) {
@@ -42,13 +43,18 @@ export class RecipeService {
   getRecipe(name: string): Recipe {
     let selectedRecipe: Recipe;
 
-    this.recipes.forEach((recipe) => {
-      if (recipe.name === name) {
-        selectedRecipe = recipe;
-      }
-    })
+    if (this.recipes) {
+      this.recipes.forEach((recipe) => {
+        if (recipe.name === name) {
+          selectedRecipe = recipe;
+        }
+      })
 
-    return selectedRecipe;
+      return selectedRecipe;
+    }
+
+    // Returns a stub to prevent errors
+    return new Recipe('', '', '', []);
   }
 
   saveRecipe(recipe: Recipe, oldRecipe: Recipe) {

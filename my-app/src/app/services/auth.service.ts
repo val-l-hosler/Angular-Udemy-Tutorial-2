@@ -101,7 +101,7 @@ export class AuthService {
     }
     if (localStorage.getItem('currentRecipes')) {
       localStorage.removeItem('currentRecipes');
-      this.recipesService.updatedRecipeList.next(null);
+      this.recipesService.updatedRecipeList.next([]);
       this.recipesService.setRecipes([]);
     }
     if (this.tokenExpirationTimer) {

@@ -6,6 +6,7 @@ import {RecipeService} from '../../services/recipe.service';
 import {AuthService} from '../../services/auth.service';
 
 import {Recipe} from '../recipe.model';
+import {Ingredient} from '../../shared/ingredient.model';
 
 interface onDestroy {
 }
@@ -37,17 +38,8 @@ export class RecipeEditComponent implements OnInit, onDestroy {
 
       (this.router.url === '/recipes/new') ? this.editMode = false : this.editMode = true;
 
-      let ingredients = new FormArray([])
-
       if (this.editMode === true) {
         if (this.currentRecipe['ingredients']) {
-          this.currentRecipe['ingredients'].forEach((ingredient) => {
-            ingredients.push(new FormGroup({
-              'name': new FormControl(ingredient.name, Validators.required),
-              'amount': new FormControl(ingredient.amount, [Validators.required, Validators.min(1)])
-            }));
-          });
-
           this.thisForm.patchValue({
             'name': this.currentRecipe.name,
             'imageUrl': this.currentRecipe.imagePath,
@@ -76,13 +68,43 @@ export class RecipeEditComponent implements OnInit, onDestroy {
     return ingredients;
   }
 
+  consolidateIngredients(ingredients): Ingredient[] {
+    const jsonIngredients = [];
+
+    ingredients.forEach((ingredient) => {
+      let object = {};
+
+      ingredients
+        .filter((filteredIngredient) => ingredient.name === filteredIngredient.name)
+        .forEach((ingredient) => {
+          if (object.hasOwnProperty('amount')) {
+            object['amount'] = object['amount'] + ingredient.amount;
+          }
+
+          if (!object.hasOwnProperty('name')) {
+            object['name'] = ingredient.name;
+            object['amount'] = ingredient.amount;
+          }
+        });
+
+      const jsonify = JSON.stringify(object);
+      const findItem = jsonIngredients.indexOf(jsonify);
+
+      if (findItem === -1) {
+        jsonIngredients.push(jsonify);
+      }
+    });
+
+    return jsonIngredients.map((ingredient) => JSON.parse(ingredient));
+  }
+
   onSubmit() {
     const name = this.thisForm.get('name').value;
     const url = this.thisForm.get('imageUrl').value;
     const description = this.thisForm.get('description').value;
     const ingredients = this.thisForm.get('ingredientsArr').value;
 
-    this.recipeService.saveRecipe(new Recipe(name, description, url, ingredients), this.currentRecipe);
+    this.recipeService.saveRecipe(new Recipe(name, description, url, this.consolidateIngredients(ingredients)), this.currentRecipe);
   }
 
   onAddIngredient() {
