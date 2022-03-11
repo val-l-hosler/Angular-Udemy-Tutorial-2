@@ -8,15 +8,12 @@ import {AuthService} from '../../services/auth.service';
 import {Recipe} from '../recipe.model';
 import {Ingredient} from '../../shared/ingredient.model';
 
-interface onDestroy {
-}
-
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.css']
 })
-export class RecipeEditComponent implements OnInit, onDestroy {
+export class RecipeEditComponent implements OnInit {
   currentRecipe: Recipe;
   editMode = false;
   thisForm: FormGroup
