@@ -22,6 +22,7 @@ export class RecipeListComponent implements OnInit {
     this.parentRecipes = this.recipeService.getRecipes();
 
     this.updatedRecipeList = this.recipeService.updatedRecipeList.subscribe((recipes) => {
+      this.recipeService.saveUpdatedRecipes(recipes);
       this.parentRecipes = recipes;
     });
   }

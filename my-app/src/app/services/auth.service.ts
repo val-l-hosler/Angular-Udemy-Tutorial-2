@@ -4,6 +4,10 @@ import {Router} from '@angular/router';
 
 import {BehaviorSubject, catchError, take, tap, throwError} from 'rxjs';
 
+import {RecipeService} from './recipe.service';
+
+import {Recipe} from '../recipe-book/recipe.model';
+
 import {User} from '../auth/user.model';
 
 import {environment} from '../../environments/environment';
@@ -29,7 +33,7 @@ export class AuthService {
 
   private tokenExpirationTimer: any;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private recipesService: RecipeService) {
   }
 
   signUp(email: string, password: string) {
@@ -82,6 +86,11 @@ export class AuthService {
       // getTime() returns the time in millisecs
       const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationDuration);
+      if (localStorage.getItem('currentRecipes')) {
+        const recipes = (JSON.parse(localStorage.getItem('currentRecipes')) as Recipe[]);
+        this.recipesService.updatedRecipeList.next(recipes);
+        this.recipesService.setRecipes(recipes);
+      }
     }
   }
 
@@ -89,6 +98,11 @@ export class AuthService {
     this.router.navigate(['/']);
     if (localStorage.getItem('userData')) {
       localStorage.removeItem('userData');
+    }
+    if (localStorage.getItem('currentRecipes')) {
+      localStorage.removeItem('currentRecipes');
+      this.recipesService.updatedRecipeList.next(null);
+      this.recipesService.setRecipes([]);
     }
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);

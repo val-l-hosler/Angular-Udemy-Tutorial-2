@@ -76,4 +76,8 @@ export class RecipeService {
     this.recipes.splice(index, 1);
     this.updatedRecipeList.next(this.getRecipes());
   }
+
+  saveUpdatedRecipes(recipes) {
+    localStorage.setItem('currentRecipes', JSON.stringify(recipes));
+  }
 }
