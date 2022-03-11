@@ -6,6 +6,7 @@ I followed intricate instructions to complete the recipe app project from the fo
 2. Fixed the following bugs in the instructor’s project:
     * Added the ability to edit the shopping list.
     * Ensured that the items on the shopping list are unique and the amount is appropriately updated when adding an ingredient.
+    * Ensured that the ingredients per recipe are unique and the amount is appropriately updated when adding an ingredient.
     * Redirected a logged-in user back to their previous page if they refresh the application.
     * Made the recipe list persistent over page refreshes for logged-in users.
 
