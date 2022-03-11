@@ -1,0 +1,56 @@
+[debug] [2022-03-11T16:21:53.063Z] ----------------------------------------------------------------------
+[debug] [2022-03-11T16:21:53.065Z] Command:       C:\Program Files (x86)\nodejs\node.exe C:\Users\valerie.hosler\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting:github
+[debug] [2022-03-11T16:21:53.065Z] CLI Version:   10.2.2
+[debug] [2022-03-11T16:21:53.065Z] Platform:      win32
+[debug] [2022-03-11T16:21:53.065Z] Node Version:  v16.13.2
+[debug] [2022-03-11T16:21:53.068Z] Time:          Fri Mar 11 2022 11:21:53 GMT-0500 (Eastern Standard Time)
+[debug] [2022-03-11T16:21:53.069Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-03-11T16:21:53.130Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-03-11T16:21:53.130Z] > authorizing via signed-in user (vlhst863@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\valerie.hosler\Documents\GitHub\Angular-udemy-tutorial-2\my-app
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2022-03-11T16:22:00.740Z] Using project from CLI flag: ng-recipe-app-16b78
+[debug] [2022-03-11T16:22:00.743Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ng-recipe-app-16b78 [none]
+[debug] [2022-03-11T16:22:01.196Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ng-recipe-app-16b78 200
+[debug] [2022-03-11T16:22:01.196Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ng-recipe-app-16b78 {"projectId":"ng-recipe-app-16b78","projectNumber":"530882163553","displayName":"ng-recipe-app","name":"projects/ng-recipe-app-16b78","resources":{"hostingSite":"ng-recipe-app-16b78","realtimeDatabaseInstance":"ng-recipe-app-16b78-default-rtdb"},"state":"ACTIVE"}
+[info] i  Using project ng-recipe-app-16b78 (ng-recipe-app) 
+[info] 
+=== Hosting:github Setup
+[info] 
+[info] i  Detected a .git folder at C:\Users\valerie.hosler\Documents\GitHub\Angular-udemy-tutorial-2 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=485747806&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2022-03-11T16:22:09.861Z] >>> HTTP REQUEST POST https://github.com/login/oauth/access_token  
+ {"client_id":"89cf50f02ac6aaed3484","client_secret":"3330d14abc895d9a74d5f17cd7a00711fa2c5bf0","code":"c5efc42e670548bd2982","redirect_uri":"http://localhost:9005","state":"485747806"}
+[debug] [2022-03-11T16:22:10.135Z] <<< HTTP RESPONSE 200 {"server":"GitHub.com","date":"Fri, 11 Mar 2022 16:22:10 GMT","content-type":"application/json; charset=utf-8","transfer-encoding":"chunked","vary":"X-PJAX, X-PJAX-Container, Accept-Encoding, Accept, X-Requested-With","permissions-policy":"interest-cohort=()","etag":"W/\"fcd72d7d1c7a7addfad806affa526c0e\"","cache-control":"max-age=0, private, must-revalidate","strict-transport-security":"max-age=31536000; includeSubdomains; preload","x-frame-options":"deny","x-content-type-options":"nosniff","x-xss-protection":"0","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","expect-ct":"max-age=2592000, report-uri=\"https://api.github.com/_private/browser/errors\"","content-security-policy":"default-src 'none'; base-uri 'self'; block-all-mixed-content; child-src github.com/assets-cdn/worker/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com objects-origin.githubusercontent.com www.githubstatus.com collector.githubapp.com collector.github.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com cdn.optimizely.com logx.optimizely.com/v1/events translator.github.com wss://alive.github.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src render.githubusercontent.com viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: github.githubassets.com identicons.github.com collector.githubapp.com collector.github.com github-cloud.s3.amazonaws.com secured-user-images.githubusercontent.com/ *.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com/; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; worker-src github.com/assets-cdn/worker/ gist.github.com/assets-cdn/worker/","x-github-request-id":"4B29:13AA:E95F0D:2B89364:622B7731"}
+[debug] [2022-03-11T16:22:10.143Z] >>> [apiv2][query] GET https://api.github.com/user [none]
+[debug] [2022-03-11T16:22:10.441Z] <<< [apiv2][status] GET https://api.github.com/user 200
+[debug] [2022-03-11T16:22:10.441Z] <<< [apiv2][body] GET https://api.github.com/user {"login":"val-l-hosler","id":90010918,"node_id":"MDQ6VXNlcjkwMDEwOTE4","avatar_url":"https://avatars.githubusercontent.com/u/90010918?v=4","gravatar_id":"","url":"https://api.github.com/users/val-l-hosler","html_url":"https://github.com/val-l-hosler","followers_url":"https://api.github.com/users/val-l-hosler/followers","following_url":"https://api.github.com/users/val-l-hosler/following{/other_user}","gists_url":"https://api.github.com/users/val-l-hosler/gists{/gist_id}","starred_url":"https://api.github.com/users/val-l-hosler/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/val-l-hosler/subscriptions","organizations_url":"https://api.github.com/users/val-l-hosler/orgs","repos_url":"https://api.github.com/users/val-l-hosler/repos","events_url":"https://api.github.com/users/val-l-hosler/events{/privacy}","received_events_url":"https://api.github.com/users/val-l-hosler/received_events","type":"User","site_admin":false,"name":"Valerie Hosler","company":null,"blog":"","location":null,"email":null,"hireable":null,"bio":null,"twitter_username":null,"public_repos":10,"public_gists":0,"followers":0,"following":0,"created_at":"2021-09-02T23:03:10Z","updated_at":"2022-03-10T16:07:56Z","private_gists":0,"total_private_repos":5,"owned_private_repos":5,"disk_usage":137769,"collaborators":0,"two_factor_authentication":false,"plan":{"name":"free","space":976562499,"collaborators":0,"private_repos":10000}}
+[info] 
+[info] +  Success! Logged into GitHub as val-l-hosler 
+[info] 
