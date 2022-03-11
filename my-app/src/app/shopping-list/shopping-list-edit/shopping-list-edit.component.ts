@@ -20,7 +20,8 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   clickedIngredientFlag = false;
   @ViewChild('thisForm') form: NgForm;
 
-  constructor(private shoppingListService: ShoppingListService, private router: Router, private authService: AuthService, private route: ActivatedRoute) {
+  constructor(private shoppingListService: ShoppingListService, private router: Router,
+              private authService: AuthService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {

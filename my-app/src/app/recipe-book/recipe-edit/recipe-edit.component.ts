@@ -18,7 +18,8 @@ export class RecipeEditComponent implements OnInit {
   editMode = false;
   thisForm: FormGroup
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService,
+              private router: Router, private authService: AuthService) {
   }
 
   ngOnInit(): void {
