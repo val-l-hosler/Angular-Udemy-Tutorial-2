@@ -23,6 +23,10 @@ export class ShoppingListService {
 
   getIngredients(): Ingredient[] {
     // returns a copy of the array so the OG is not edited
+    if(localStorage.getItem('shoppingListIngredients')){
+      this.ingredients = JSON.parse(localStorage.getItem('shoppingListIngredients'));
+    }
+
     return this.ingredients.slice();
   }
 
@@ -40,6 +44,8 @@ export class ShoppingListService {
     (!matchingIngredientFlag) ?
       (this.ingredients.push(addedIngredient)) :
       (this.editIngredient(new Ingredient(addedIngredient.name, parseInt(addedIngredient.amount + oldAmount))));
+
+    localStorage.setItem('shoppingListIngredients', JSON.stringify(this.ingredients));
   }
 
   editIngredient(editedIngredient: Ingredient) {
@@ -48,6 +54,8 @@ export class ShoppingListService {
         ingredient.amount = editedIngredient.amount;
       }
     });
+
+    localStorage.setItem('shoppingListIngredients', JSON.stringify(this.ingredients));
   }
 
   sentIngredients(recipeIngredients: Ingredient[]) {
@@ -69,5 +77,6 @@ export class ShoppingListService {
   deleteIngredient(ingredient: Ingredient) {
     const index = this.ingredients.indexOf(ingredient);
     (index > -1) ? this.ingredients.splice(index, 1) : null;
+    localStorage.setItem('shoppingListIngredients', JSON.stringify(this.ingredients));
   }
 }
