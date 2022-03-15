@@ -15,8 +15,11 @@ import {Ingredient} from '../shared/ingredient.model';
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[];
+  index: number;
+
   private addIngredientSub: Subscription;
   private deleteIngredientSub: Subscription;
+  private clickedIngredientSub: Subscription;
   private editIngredientSub: Subscription;
 
   constructor(private shoppingListService: ShoppingListService, private authService: AuthService, private route: ActivatedRoute) {
@@ -40,8 +43,13 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
       this.ingredients = this.shoppingListService.getIngredients();
     });
 
+    this.clickedIngredientSub = this.shoppingListService.clickedIngredient.subscribe((ingredient) => {
+      const names = this.ingredients.map((mappedIngredient) => mappedIngredient.name);
+      this.index = names.indexOf(ingredient.name);
+    })
+
     this.editIngredientSub = this.shoppingListService.ingredientsEdited.subscribe((ingredient) => {
-      this.shoppingListService.editIngredient(ingredient);
+      this.shoppingListService.editIngredient(ingredient, this.index);
       this.ingredients = this.shoppingListService.getIngredients();
     });
   }
@@ -49,6 +57,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.addIngredientSub.unsubscribe();
     this.deleteIngredientSub.unsubscribe();
+    this.clickedIngredientSub.unsubscribe();
     this.editIngredientSub.unsubscribe();
   }
 

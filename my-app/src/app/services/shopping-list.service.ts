@@ -23,7 +23,7 @@ export class ShoppingListService {
 
   getIngredients(): Ingredient[] {
     // returns a copy of the array so the OG is not edited
-    if(localStorage.getItem('shoppingListIngredients')){
+    if (localStorage.getItem('shoppingListIngredients')) {
       this.ingredients = JSON.parse(localStorage.getItem('shoppingListIngredients'));
     }
 
@@ -33,28 +33,25 @@ export class ShoppingListService {
   addIngredient(addedIngredient: Ingredient) {
     let matchingIngredientFlag = false;
     let oldAmount;
+    let index;
 
-    this.ingredients.forEach((ingredient) => {
-      if (addedIngredient.name === ingredient.name) {
+    for (let i = 0; i < this.ingredients.length; i++) {
+      if (addedIngredient.name === this.ingredients[i].name) {
         matchingIngredientFlag = true;
-        oldAmount = ingredient.amount;
+        oldAmount = this.ingredients[i].amount;
+        index = i;
       }
-    });
+    }
 
     (!matchingIngredientFlag) ?
       (this.ingredients.push(addedIngredient)) :
-      (this.editIngredient(new Ingredient(addedIngredient.name, parseInt(addedIngredient.amount + oldAmount))));
+      (this.editIngredient(new Ingredient(addedIngredient.name, parseInt(addedIngredient.amount + oldAmount)), index));
 
     localStorage.setItem('shoppingListIngredients', JSON.stringify(this.ingredients));
   }
 
-  editIngredient(editedIngredient: Ingredient) {
-    this.ingredients.forEach((ingredient) => {
-      if (editedIngredient.name === ingredient.name) {
-        ingredient.amount = editedIngredient.amount;
-      }
-    });
-
+  editIngredient(editedIngredient: Ingredient, index: number) {
+    this.ingredients[index] = new Ingredient(editedIngredient.name, editedIngredient.amount);
     localStorage.setItem('shoppingListIngredients', JSON.stringify(this.ingredients));
   }
 
