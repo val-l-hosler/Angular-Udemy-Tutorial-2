@@ -44,10 +44,7 @@ export class AuthService {
       returnSecureToken: true
     })
       .pipe(
-        catchError(this.handleError),
-        tap((responseData) => {
-          this.handleAuth(responseData.email, responseData.localId, responseData.idToken, +responseData.expiresIn);
-        })
+        catchError(this.handleError)
       );
   }
 
