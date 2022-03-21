@@ -7,7 +7,7 @@ I followed intricate instructions to complete the recipe app project from the fo
     * Ensured that the items on the shopping list are unique and the amount is appropriately updated when adding an ingredient.
     * Ensured that the ingredients per recipe are unique and the amount is appropriately updated when adding an ingredient.
     * Redirected a logged-in user back to their previous page if they refresh the application.
-    * Made the recipe list persistent over page refreshes for logged-in users.
+    * Made the edited recipe list persistent over page refreshes for logged-in users.
     * Made the shopping list persistent over page refreshes.
 
 ### :point_right: Visit the [following url](https://ng-recipe-app-16b78.web.app/auth) to view a live demo of the Angular application
