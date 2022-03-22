@@ -26,7 +26,9 @@ export class AuthGuard implements CanActivate {
             previousUrl = new BehaviorSubject<string>('/auth').value;
 
           this.authService.currentUrl.next(null);
+
           const isAuth = !!user;
+
           return (isAuth) ? true : this.router.createUrlTree([previousUrl]);
           // or could be return (user) ? true : false;
         })

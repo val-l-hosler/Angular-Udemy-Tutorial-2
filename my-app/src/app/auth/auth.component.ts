@@ -94,6 +94,9 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     // Split it up like this, so you don't repeat code
     this.authOpObservable
+      .pipe(
+        take(1)
+      )
       .subscribe({
         next: (responseData) => {
           (responseData.registered) ?

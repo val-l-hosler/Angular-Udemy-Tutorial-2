@@ -61,7 +61,8 @@ export class RecipeService {
     let index = -1;
 
     for (let i = 0; i < this.recipes.length; i++) {
-      if (oldRecipe.name === this.recipes[i].name) {
+      console.log(oldRecipe.name, this.recipes[i].name)
+      if ((oldRecipe.name === this.recipes[i].name) || ((recipe.name === this.recipes[i].name))) {
         index = i;
         break;
       }

@@ -101,7 +101,7 @@ export class RecipeEditComponent implements OnInit {
     const url = this.thisForm.get('imageUrl').value;
     const description = this.thisForm.get('description').value;
     const ingredients = this.thisForm.get('ingredientsArr').value;
-
+    
     this.recipeService.saveRecipe(new Recipe(name, description, url, this.consolidateIngredients(ingredients)), this.currentRecipe);
   }
 
