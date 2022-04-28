@@ -12,3 +12,9 @@ I followed intricate instructions to complete the recipe app project from the fo
     * Made the shopping list persistent over page refreshes.
 
 ### :point_right: Visit the [following url](https://ng-recipe-app-16b78.web.app/auth) to view a live demo of the Angular application
+
+### 🧰 Tech Stack 
+1. Angular 13
+2. RxJS
+3. Bootstrap 3
+4. TypeScript
