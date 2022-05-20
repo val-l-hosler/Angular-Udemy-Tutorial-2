@@ -12,7 +12,7 @@ I followed intricate instructions to complete the recipe app project from the fo
     * Made the edited recipe list persistent over page refreshes for logged-in users.
     * Made the shopping list persistent over page refreshes.
 
-### :point_right: Visit the [following url](https://ng-recipe-app-16b78.web.app/auth) to view a live demo of the Angular application
+### :point_right: Visit the [following url](https://ng-recipe-app-16b78.web.app/auth) to view a live demo of the Angular application.
 
 ### 🧰 Tech Stack 
 1. Angular 13
